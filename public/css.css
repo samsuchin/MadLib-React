@@ -11,13 +11,17 @@ body{
     font-family: inherit;
     width: 100%;
     border: 0;
-    padding: 75px 10px 75px 50px;
+    padding: 50px 10px 50px 10px;
     font-size: 50px;
     text-align: center;
     color: #282828;
     width: 50%;
     outline: none;
     
+}
+#insertVal{
+    font-size: 40px;
+    color: white;
 }
 .container{
 

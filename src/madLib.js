@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, setState } from "react";
 import styled from "styled-components";
 
 // A div is a division that can be used as a container in the html
@@ -42,18 +42,60 @@ const Button = styled.button`
 // imported into index.js to be rendered inside the <App/> component.
 
 export default function MadLibComp() {
-  
-  const [data, setVal] = useState([]);
+  var userValues = [
+    {
+      'value': "",
+      'name': " Noun",
+      'ex': 'Larry'
+    },
+    {
+      'value': "",
+      'name': "nother Noun",
+      'ex': 'Larry'
+    },
+    {
+      'value': "",
+      'name': " Verb",
+      'ex': 'Adjective'
+    },
+    {
+      'value': "",
+      'name': " Noun",
+      'ex': 'Larry'
+    }
+  ]
+  const tester = "Tester"
+  const [index, setVal] = useState(0);
   function handleChange(e) {
-    console.log(e.target.value);
+    const inBox = document.querySelector(".inputBox")
+    inBox.value = e;
+    console.log(e)
   }
+
+
   const placeChange = () => {
-    setVal(1)
+    const inBox = document.querySelector(".inputBox")
+    if(index==3){
+      setVal(0)
+      inBox.value = "Done"
+      console.log(userValues)
+      
+    }
+    else{
+      setState({
+      tester: "Changed"
+      })
+    
+    setVal(index+1)
+    inBox.value = ""
+    }
+
   }
   
   return (
     <div class="text-center">
-    <input class="inputBox" name="firstName" onChange={handleChange} placeholder="Noun"/>
+      <div id="insertVal">Type a{userValues[index].name} {tester}</div>
+    <input class="inputBox" type="text" name="firstName" placeholder={userValues[index].ex}/>
     <br></br><br></br>
     <button onClick={placeChange}>Next</button>
     </div>
