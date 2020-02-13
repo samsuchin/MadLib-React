@@ -1,0 +1,49 @@
+
+.titleText{
+    font-size: 80px;
+    font-family: "Comic Sans MS", cursive, sans-serif;
+}
+body{
+    background-color: #282828 !important;
+}
+.inputBox{
+    border-radius: 50px;
+    font-family: inherit;
+    width: 100%;
+    border: 0;
+    padding: 75px 10px 75px 50px;
+    font-size: 50px;
+    text-align: center;
+    color: #282828;
+    width: 50%;
+    outline: none;
+    
+}
+.container{
+
+    border-radius: 50px;
+    background: linear-gradient(-45deg, #130147, #3d1f99, rgb(119, 85, 221));
+    background-size: 400% 400%;
+    animation: gradient 10s ease infinite;
+    padding: 0px 0px 100px 0px;
+    
+}
+
+@keyframes gradient {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+/*
+#0c0032
+#190061
+#240090
+#3500D3
+#282828
+*/

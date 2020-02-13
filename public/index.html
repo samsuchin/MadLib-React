@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="theme-color" content="#000000">
+  <link rel="stylesheet" href="./css.css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"></script>
+	<!--
+      manifest.json provides metadata used when your web app is added to the
+      homescreen on Android. See https://developers.google.com/web/fundamentals/engage-and-retain/web-app-manifest/
+    -->
+	<link rel="manifest" href="%PUBLIC_URL%/manifest.json">
+	<link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico">
+	<!--
+      Notice the use of %PUBLIC_URL% in the tags above.
+      It will be replaced with the URL of the `public` folder during the build.
+      Only files inside the `public` folder can be referenced from the HTML.
+
+      Unlike "/favicon.ico" or "favicon.ico", "%PUBLIC_URL%/favicon.ico" will
+      work correctly both with client-side routing and a non-root public URL.
+      Learn how to configure a non-root public URL by running `npm run build`.
+    -->
+	<title>React App</title>
+</head>
+
+
+	<noscript>
+		You need to enable JavaScript to run this app.
+  </noscript>
+  <header class="wrapper text-center">
+
+      
+
+  </header>
+  <br>
+  <br>
+  <br>
+  <br>
+  <body>
+    <div id="backing" class="container text-center">
+      <svg class="zdog-canvas" width="500" height="275"></svg>
+  <div class="text-center contentBody">
+  <div id="root"></div>
+  <br>
+
+
+  </div>
+</div>
+
+	<!--
+      This HTML file is a template.
+      If you open it directly in the browser, you will see an empty page.
+
+      You can add webfonts, meta tags, or analytics to this file.
+      The build step will place the bundled scripts into the <body> tag.
+
+      To begin the development, run `npm start` or `yarn start`.
+      To create a production bundle, use `npm run build` or `yarn build`.
+    -->
+</body>
+
+</html>
+<script src="https://unpkg.com/zdog@1/dist/zdog.dist.min.js"></script>
+<script src="zdog-demo.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/zfont/dist/zfont.min.js"></script>
+<script src="build/gradientify.js"></script>
+<script>
+  new Gradientify({
+    element: document.getElementById("backing"),
+    gradients: [
+      `linear-gradient(60deg, rgb(255, 0, 0), rgb(0, 0, 255))`,
+      `linear-gradient(10deg, rgb(25, 123, 23), #ff22af)`,
+      `radial-gradient(rgb(25, 123, 223), red)` // All valid CSS gradients are supported
+    ],
+    fixed: false,
+    delay: 0, 
+    interval: 5000
+})
+</script>
+<script>
+Zfont.init(Zdog);
+
+// Create Zdog Illustration
+// https://zzz.dog/api#illustration
+var illo = new Zdog.Illustration({
+  element: '.zdog-canvas',
+  rotate: {x: -0.2, y: .6, z: 0},
+  onResize: function(width, height) {
+    var minSize = Math.min(width, height);
+    this.zoom = minSize / 420;
+  }
+});
+
+// Create a Font object
+// You can use any .ttf or .otf font!
+// https://github.com/jaames/zfont#zdogfont
+var font = new Zdog.Font({
+  src: 'https://cdn.jsdelivr.net/gh/jaames/zfont/demo/fredokaone.ttf'
+});
+
+// Create a TextGroup object for the title
+// https://github.com/jaames/zfont#zdogtextgroup
+var title = new Zdog.TextGroup({
+  addTo: illo,
+  font: font,
+  value: "MadLib App",
+  fontSize: 100,
+  textAlign: 'center',
+  textBaseline: 'middle',
+  translate: { y: -50},
+  color: '#fff',
+  fill: true
+});
+
+// Duplicate the title to create a shadow effect
+var titleShadow = title.copyGraph({
+  translate: { z: -15, y: -50},
+  color: '#282828'
+});
+
+// Create a TextGroup object for the subtitle
+// https://github.com/jaames/zfont#zdogtextgroup
+var sub = new Zdog.TextGroup({
+  addTo: illo,
+  font: font,
+  // Pass an array as the text value for multiline text:   
+  value: [
+    'By Sam Suchin'
+  ],
+  fontSize: 42,
+  textAlign: 'center',
+  textBaseline: 'middle',
+  translate: {y: 50},
+  color: '#fff',
+  fill: true,
+});
+
+// Duplicate the subtitle to create a shadow effect
+var subShadow = sub.copyGraph({
+  translate: { z: -15, y: 50 },
+  color: '#282828'
+})
+
+// Settings for the wave animation
+var t = 0;
+var tStep = 5;
+var amplitude = 0.75;
+var frequency = 80;
+
+// Wave function
+// This loops through every shape in a TextGroup and modifies its position according to a sine wave
+function wave(group) {
+  group.children.forEach(shape => {
+    var x = shape.translate.x + t;
+    shape.translate.y += amplitude * Math.sin(x / frequency);
+  });
+}
+
+// Animation loop
+function animate() {
+  wave(title);
+  wave(titleShadow);
+  wave(sub);
+  wave(subShadow);
+  t += tStep;
+  illo.updateRenderGraph();
+  requestAnimationFrame(animate);
+}
+animate();
+</script>
