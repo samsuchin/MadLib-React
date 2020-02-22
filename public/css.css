@@ -44,6 +44,29 @@ body{
         background-position: 0% 50%;
     }
 }
+.storyWall{
+    background-color: white;
+    font-size: 30px;
+    border-radius: 20px;
+    padding: 20px 10px 50px 10px;
+    color: black;
+    margin-left: 50px;
+    margin-right: 50px;
+}
+.btn-return{
+    background-color: #3d1f99 !important;
+    color: white !important;
+    font-size: 30px !important;
+    padding: 10px 10px 10px 10px !important;
+    border-radius: 20px !important;
+}
+.btn-return:hover{
+    background-color: #24105f !important;
+    color: white !important;
+    font-size: 30px !important;
+    padding: 10px 10px 10px 10px !important;
+    border-radius: 20px !important;
+}
 /*
 #0c0032
 #190061

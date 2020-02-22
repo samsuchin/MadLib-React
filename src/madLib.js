@@ -1,104 +1,89 @@
 import React, { useState, setState } from "react";
 import styled from "styled-components";
 
-// A div is a division that can be used as a container in the html
-// This is a styled div we named container. Below it is just regular CSS.
-const Container = styled.div`
-  border-radius: 3px;
-  width: 100px;
-  height: 110px;
-  margin: 0 auto;
-  background-color: #eee;
-  background-clip: border-box;
-  border: none;
-  border-radius: 0.5rem;
-  border-color: #c4c4c4;
-  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075),
-    0 0 8px hsla(0, 0%, 76.9%, 0.4);
-  margin-top: 20px;
-`;
-
-// Here is a styled div we named Count.
-const Count = styled.div`
-  color: #337067;
-  font-size: 55px;
-  display: flex;
-  justify-content: center;
-  width: 100%;
-`;
-
-// And a styled button tag we named Button.
-const Button = styled.button`
-  background: #337067;
-  border-radius: 3px;
-  color: white;
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  width: 70%;
-`;
-
-// This Counter function is a component that is exported from here and
-// imported into index.js to be rendered inside the <App/> component.
-
+const inBox = document.querySelector(".inputBox")
+const defObj = {
+  1:{
+    'value': "",
+    'name': " noun",
+    'ex': 'pig'
+  },
+  2:{
+    'value': "",
+    'name': "nother noun",
+    'ex': 'food'
+  },
+  3:{
+    'value': "",
+    'name': " verb",
+    'ex': 'taste'
+  },
+  4:{
+    'value': "",
+    'name': "n adjective",
+    'ex': 'cold'
+  }
+}
 export default function MadLibComp() {
-  var userValues = [
-    {
-      'value': "",
-      'name': " Noun",
-      'ex': 'Larry'
-    },
-    {
-      'value': "",
-      'name': "nother Noun",
-      'ex': 'Larry'
-    },
-    {
-      'value': "",
-      'name': " Verb",
-      'ex': 'Adjective'
-    },
-    {
-      'value': "",
-      'name': " Noun",
-      'ex': 'Larry'
-    }
-  ]
+  var inputting = true;
+  const [index, setIndex] = useState(1)
   const tester = "Tester"
-  const [index, setVal] = useState(0);
-  function handleChange(e) {
-    const inBox = document.querySelector(".inputBox")
-    inBox.value = e;
-    console.log(e)
-  }
+  var [userValues, setVal] = useState(defObj);
 
-
-  const placeChange = () => {
-    const inBox = document.querySelector(".inputBox")
-    if(index==3){
-      setVal(0)
-      inBox.value = "Done"
-      console.log(userValues)
-      
-    }
-    else{
-      setState({
-      tester: "Changed"
-      })
-    
-    setVal(index+1)
-    inBox.value = ""
-    }
-
-  }
+function placeChange(){
+  const inBox = document.querySelector(".inputBox")
+  setIndex(index+1)
+  inBox.value = ""
   
+  
+  
+}
+window.addEventListener("keypress", function(e){
+  if(e.key === "Enter"){
+    placeChange()
+  }
+})
+function restartScreen(){
+  setIndex(1)
+  setVal(defObj)
+}
+
+if(index<=4){
   return (
     <div class="text-center">
-      <div id="insertVal">Type a{userValues[index].name} {tester}</div>
-    <input class="inputBox" type="text" name="firstName" placeholder={userValues[index].ex}/>
-    <br></br><br></br>
-    <button onClick={placeChange}>Next</button>
+      <div id="insertVal">Type a{userValues[index].name}</div>
+    <input class="inputBox" onChange={e => setVal({...userValues, [index]: {'value': e.target.value, 'name': userValues[index].name}})} type="text" name="firstName" placeholder={userValues[index].ex}/>
+    
+    <div id="insertVal">then press Enter 
+    <br>
+    </br>
+    <span>{index < 4 ? '' : 'One More!'}</span>
     </div>
+    
+    <br></br>
+    </div>
+    
   );
+}
+else{
+  return (
+    <div class="text-center">
+      <div class="inputBox"></div>
+      <div class="storyWall">
+      <h1>Your Story</h1>
+      <br>
+      </br>
+      When I saw the monkey king <strong>{userValues[3].value}</strong>. I ran away to the very <strong>{userValues[4].value}</strong> <strong>{userValues[1].value}</strong>. I then played chess on my <strong>{userValues[2].value}</strong>.
+    <br></br><br></br>
+    {}
+      <button class='btn btn-return' onClick={restartScreen}>Restart</button>
+      </div>
+      
+    </div>
+  )
+}
+
+
+
 }
 
